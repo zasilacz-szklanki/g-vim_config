@@ -34,7 +34,7 @@ if has("gui_running")
 
 	set guifont=Consolas:h12
 	set guioptions -=m "Hides the menubar
-    set guioptions -=T "Hides the toolbar
+    	set guioptions -=T "Hides the toolbar
 	
 	"add <CR> as end to admit(=confirm) compilation
 	"<CR> emulate enter press (?)
