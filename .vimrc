@@ -12,8 +12,12 @@ if has("gui_running")
 	set columns=80
 	"set cursorcolumn
 	colorscheme inkpot_gc
+	"colorscheme github
+	"colorscheme azure
+	"colorscheme morning
+	"colorscheme tone
 
-	au BufReadPost *.txt set syntax=txt
+	"au BufReadPost *.txt set syntax=txt
 	set dictionary=C:\Vim\vim82\dictionary\c_cpp.dict
 
 	"Folds
@@ -32,20 +36,36 @@ if has("gui_running")
 	let g:rainbow_active=1 "active for all
 	let g:rainbow_guifgs = ['yellow', 'magenta', 'aqua']	
 
-	set guifont=Consolas:h12
+	set guifont=Consolas:h11
 	set guioptions -=m "Hides the menubar
-    	set guioptions -=T "Hides the toolbar
+    set guioptions -=T "Hides the toolbar
 	
 	"add <CR> as end to admit(=confirm) compilation
 	"<CR> emulate enter press (?)
 	autocmd filetype cpp nnoremap <F5> :w <bar> !g++ % -o %:r && %:r.exe<CR>
+	autocmd filetype cpp inoremap <F5> <Esc> :w <bar> !g++ % -o %:r && %:r.exe<CR>
 	autocmd filetype c nnoremap <F5> :w <bar> !gcc % -o %:r && %:r.exe<CR>
-	autocmd filetype asm nnoremap <F5> :w <bar> !nasm % -fwin64 -o %:r.obj -g && gcc %:r.obj -o %:r && %:r.exe -g<CR>
+	autocmd filetype c inoremap <F5> <Esc> :w <bar> !gcc % -o %:r && %:r.exe<CR>
+	autocmd filetype python nnoremap <F5> :w <bar> !python %<CR>
+	autocmd filetype python inoremap <F5> <Esc> :w <bar> !python %<CR>
+
 	autocmd filetype cpp,c,asm,rs nnoremap <F4> :w <bar> !make<CR>
+	autocmd filetype cpp,c,asm,rs inoremap <F4> <Esc> :w <bar> !make<CR>
+
+	autocmd filetype asm nnoremap <F5> :w <bar> !nasm % -fwin64 -o %:r.obj -g && gcc %:r.obj -o %:r && %:r.exe -g<CR>
 	"nnoremap <F4> :w <bar> !make<CR>
 	nnoremap <F9> :edit .vimrc<CR>
 	autocmd filetype rust nnoremap <F5> :w <bar> !rustc % && %:r.exe<CR>
 	autocmd filetype go nnoremap <F5> :w <bar> !go run %<CR>
+
+	"creating object file
+	autocmd filetype c nnoremap <F6> :w <bar> !gcc % -o %:r.o -c<CR>
+	autocmd filetype c inoremap <F6> <Esc> :w <bar> !gcc % -o %:r.o -c<CR>
+	autocmd filetype cpp nnoremap <F6> :w <bar> !g++ % -o %:r.o -c<CR>
+	autocmd filetype cpp inoremap <F6> <Esc> :w <bar> !g++ % -o %:r.o -c<CR>
+	"disassemble *.o file
+	autocmd filetype c,cpp nnoremap <F7> :w <bar> !objdump --disassemble-all -Mintel %:r.o<CR> 
+	autocmd filetype c,cpp inoremap <F7> <Esc> :w <bar> !objdump --disassemble-all -Mintel %:r.o<CR> 
 	
 	"Alt+Up Alt+Down <A-Up> or <M-Up> (same)
 	nnoremap <M-Down> :m+1<CR>
@@ -80,6 +100,9 @@ if has("gui_running")
 	"Jump over whole word
 	inoremap <C-Right> w
 	inoremap <C-Left>  b
+	"Change tab
+	nnoremap <C-Tab> gt
+	nnoremap <C-S-Tab> gT
 	
 	"Notes :
 	"ga ascii of char under cursor
