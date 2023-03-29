@@ -6,19 +6,44 @@ set nobackup
 set nowritebackup
 set noswapfile
 set backspace=indent,eol,start "normalny backspace
+"set showmatch
 "set laststatus=2
+
+"search
+set ignorecase "is->nois
+set incsearch  "ic->noic
+set hlsearch   "hls->nohlsearch=nohls
+"search and replace
+"%s/{search_str}/{replace_str}/gc
+"g => gloabal search
+"c => ask for confirmation
+"i => case insensitive
+"language
+set langmenu=en_US
+language en_US.utf8
+"set $LANG='en_US'
+	
 if has("gui_running")
 	set cursorline
 	set columns=80
-	"set cursorcolumn
 	colorscheme inkpot_gc
+	set dictionary=C:\Vim\vim90\dictionary\c_cpp.dict
+	"set cursorcolumn
 	"colorscheme github
 	"colorscheme azure
 	"colorscheme morning
 	"colorscheme tone
 
+	"set autoindent
+	"set smarttab
+	"set nowrap
+
 	"au BufReadPost *.txt set syntax=txt
-	set dictionary=C:\Vim\vim82\dictionary\c_cpp.dict
+
+	"Notes :
+	"ga ascii of char under cursor
+	"Visual Mode aw - select word
+	"<C-k> is unmapped
 
 	"Folds
 	"zo - open
@@ -26,7 +51,6 @@ if has("gui_running")
 	"zR - open all
 	"zm - increase depth
 	"zr - decrease depth	
-	"set foldmethod=syntax
 	"auto close
 	"set foldlevel=1
 	"set foldclose=all
@@ -39,7 +63,7 @@ if has("gui_running")
 	set guifont=Consolas:h11
 	set guioptions -=m "Hides the menubar
     set guioptions -=T "Hides the toolbar
-	
+
 	"add <CR> as end to admit(=confirm) compilation
 	"<CR> emulate enter press (?)
 	autocmd filetype cpp nnoremap <F5> :w <bar> !g++ % -o %:r && %:r.exe<CR>
@@ -53,8 +77,10 @@ if has("gui_running")
 	autocmd filetype cpp,c,asm,rs inoremap <F4> <Esc> :w <bar> !make<CR>
 
 	autocmd filetype asm nnoremap <F5> :w <bar> !nasm % -fwin64 -o %:r.obj -g && gcc %:r.obj -o %:r && %:r.exe -g<CR>
-	"nnoremap <F4> :w <bar> !make<CR>
-	nnoremap <F9> :edit .vimrc<CR>
+
+	nnoremap <F4> :w <bar> !make<CR>
+
+	nnoremap <F9> :edit C:\Users\kacpe\.vimrc <CR>
 	autocmd filetype rust nnoremap <F5> :w <bar> !rustc % && %:r.exe<CR>
 	autocmd filetype go nnoremap <F5> :w <bar> !go run %<CR>
 
@@ -66,6 +92,9 @@ if has("gui_running")
 	"disassemble *.o file
 	autocmd filetype c,cpp nnoremap <F7> :w <bar> !objdump --disassemble-all -Mintel %:r.o<CR> 
 	autocmd filetype c,cpp inoremap <F7> <Esc> :w <bar> !objdump --disassemble-all -Mintel %:r.o<CR> 
+
+	"open in sublime text (subl.exe)
+	nnoremap <F8> :!subl %<CR>
 	
 	"Alt+Up Alt+Down <A-Up> or <M-Up> (same)
 	nnoremap <M-Down> :m+1<CR>
@@ -104,8 +133,4 @@ if has("gui_running")
 	nnoremap <C-Tab> gt
 	nnoremap <C-S-Tab> gT
 	
-	"Notes :
-	"ga ascii of char under cursor
-	"Visual Mode aw - select word
-	"<C-k> is unmapped
 endif
